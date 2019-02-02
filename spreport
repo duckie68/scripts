@@ -1,0 +1,54 @@
+#!/bin/bash
+#
+# SCRIPT:	spreport
+# AUTHOR:	duckie68 - D. Duckie Rodriguez
+#		https://github.com/duckie68
+# DATE:		02-February-2019
+# REV:		1.1.A
+#
+# PLATFORM:	Linux
+#
+# PURPOSE:	Provide reports and other actions for fountain screenplay
+#		files.
+#
+# USAGE:	spreport
+
+IFS=$'\n'
+characters=($(grep -oP '^[A-Z\s]+\(?[OV]?\.?[SO]?\.?\)?$' $1 | sort | uniq))
+unset IFS
+
+n=""
+for i in "${characters[@]}"
+do
+	echo -e "$i\t$(grep -c "^$i$" $1)"
+#	echo "$n"
+done
+
+echo -e "\n"
+
+read -p "Do you wish to save this as a report? (y/n) " yn
+case $yn in
+	[Yy]* ) if [ -f "report.txt" ]
+		then
+			rm report.txt
+		fi
+		for i in "${characters[@]}"
+		do
+			echo -e "$i\t$(grep -c "^$i$" $1)" >> report.txt
+		done;;
+	* ) echo "Skipping report generation.";;
+esac
+
+echo -e "\n"
+
+read -p "Would you like to generate individual character scripts? (y/n) " yn
+case $yn in
+	[Yy]* ) for i in "${characters[@]}"
+		do
+			f=`echo $i | tr ' ' '_' `
+			awk /^$i$/,/^$/ $1 > ${f}.fountain
+		done;;
+	* ) echo "Skipping individual script file generation.";;
+esac
+
+echo -e "\nHave a nice day!"

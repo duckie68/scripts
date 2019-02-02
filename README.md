@@ -25,5 +25,16 @@ Upon creation of the file, it calls up **nvim** with the file in the buffer.
 
 I did not do anything to set script permissions, so `chmod +x` will be needed to run it still.
 
+## spreport
+This is a report utility for fountain screenplay formatted scripts.
+
+It begins by listing the number of lines per character.
+
+Next, it will ask if you wish to save this as a report.  Answering yes will cause it to generate a `report.txt` listing all characters and the number of lines they have.  **WARNING** this will overwrite any file named `report.txt` in the directory this script is run in.
+
+The reason it asks if you wish for a report is because of one slight vagary that I dislike in any screenplay markdown or editor.  Any character that is listed as off screen **(O.S.)** or voiceover **(V.O.)** on the character line is listed as a separate character.  Seeing this in a report makes for a good time to change those into parantheticals so you can get best use out of this script.
+
+Next, the script asks if you wish for it to generate individual character scripts.  I have never seen this functionality in any screenplay software, and I don't know why not.  Each individual character script will produce a file with only that characters lines in it.  Though not all actors will use something like this, it can be an aid to memorization for some.  Since the character scripts are still in fountain format, they can be pretty printed in screenplay style with any parser.
+
 # TODO:
 The next logical step is to take both of these templates, and turn them into functions to be used in an all inclusive shell program that will create whatever template I want.  Again, these programs are used for teaching, and will all be heavily commented, so anyone should be able to easily create templates of their own based around file creation, data population, and directory structure.  Even going so far as opening up an entire development environment to specific standards.
